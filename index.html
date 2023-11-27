@@ -42,9 +42,21 @@
                             <h6>Modificar registro</h6>
                             <input type="number" id="inputPutId" class="form-control"
                                 placeholder="ID del registro a modificar">
+                                <br>
                             <button id="btnPut" class="btn btn-warning position-absolute bottom-0 mb-3">
                                 Modificar</button>
+
+                                 <!-- Formulario oculto inicialmente -->
+                                <div id="miFormulario" style="display: none;">
+                                    <!-- Contenido del formulario -->
+                                    <label for="nombre">Nombre:</label>
+                                    <input class="form-control" type="text" id="txtNombre" name="nombre">
+                                    <label for="apellido">Apellido:</label>
+                                    <input class="form-control" type="text" id="txtApellido" name="apellido">
+                                    <input class="btn btn-warning position-absolute mb-3" id="btnModificarUsuario" type="button" value="Enviar">
+                                </div>
                         </div>
+
                     </div>
                     <div class="col-md-6">
                         <div class="border p-3 my-3 position-relative" id="delete-box">

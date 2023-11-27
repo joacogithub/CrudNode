@@ -5,12 +5,16 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelector('#btnPost').addEventListener('click', postDato);
   //Eliminar Usuario
   document.getElementById('btnDelete').addEventListener('click', deleteUser);
+  //
+  document.querySelector('#btnPut').addEventListener('click', mostrarFormulario);
+  //
+  document.querySelector('#btnModificarUsuario').addEventListener('click', editUser);
 });
 
 //Función GET by ID
 function getDatos() {
-  let id = document.getElementById('inputGet1Id').value;
-  if (id !== "") {
+  let id = document.querySelector('#inputGet1Id').value;
+  if (id !== '') {
     fetch(`https://65427c36ad8044116ed3720a.mockapi.io/users/${id}`)
       .then(res => res.json())
       .then(data => {
@@ -22,17 +26,18 @@ function getDatos() {
   } else {
     getAll();
   }
+  document.querySelector('#inputGet1Id').value = '';
 }
 //Mostrar datos de usuario si ID=x
 function mostrarDatos(data) {
   let container = document.querySelector('#results');
-  container.innerHTML = "";
-  container.innerHTML = `<div><p>id: ${data.id}</p><p>name: ${data.name}</p><p>lastname: ${data.lastname}</p></div>`;
+  container.innerHTML = '';
+  container.innerHTML = `<div><span>&nbsp;&nbsp; id: ${data.id}</span> <br> <span>&nbsp;&nbsp; name: ${data.name}</span> <br> <span>&nbsp;&nbsp; lastname: ${data.lastname}</span></div> <hr>`;
 }
 //Mostrar datos de usuarios si ID=null
 function showAll(data) {
   let container = document.getElementById('results');
-  container.innerHTML = "";
+  container.innerHTML = '';
   for (let one of data) {
     container.innerHTML += `
     <div>
@@ -58,13 +63,15 @@ function postDato() {
     },
     body: JSON.stringify(datos),
   })
-  .then(response=> response.json())
-  .then(data=>{
-    getAll(data);
-  })
-  .catch(error=> {
-    alert(error);
-  })
+    .then(response => response.json())
+    .then(data => {
+      getAll(data);
+    })
+    .catch(error => {
+      alert(error);
+    });
+  document.querySelector('#inputPostNombre').value = '';
+  document.querySelector('#inputPostApellido').value = '';
 }
 //Funcion DELETE
 function deleteUser() {
@@ -72,24 +79,65 @@ function deleteUser() {
   let URL = `https://65427c36ad8044116ed3720a.mockapi.io/users/${entrada.value}`;
   fetch(URL, { method: 'DELETE' })
     .then(response => response.json())
-    .then(data=> {
+    .then(data => {
       entrada.innerHTML = null;
       getAll();
     })
     .catch(error => {
       console.error('Error al enviar los datos', error);
     });
+  document.querySelector('#inputDelete').value = '';
 }
 //Función PUT
-function editUser() {};
-//Get Todos
-function getAll(){
-  fetch(`https://65427c36ad8044116ed3720a.mockapi.io/users`)
-  .then(response => response.json())
-  .then(data => {
-    showAll(data);
+function editUser() {
+  let formulario = document.querySelector('#miFormulario');
+  let boton = document.querySelector('#btnPut');
+  let nombre = document.querySelector('#txtNombre').value;
+  let apellido = document.querySelector('#txtApellido').value;
+  let id = document.querySelector('#inputPutId').value;
+  let datos = {
+    name: nombre,
+    lastname: apellido,
+  };
+
+  let URL = `https://65427c36ad8044116ed3720a.mockapi.io/users/${id}`;
+  fetch(URL, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(datos),
   })
-  .catch(err => {
-    console.error('There was an error', err);
-  });
+    .then(response => response.json())
+    .then(data => {
+      mostrarDatos(data);
+    })
+    .catch(error => {
+      console.error('Error al enviar los datos', error);
+    });
+
+  document.querySelector('#txtNombre').value = '';
+  document.querySelector('#txtApellido').value = '';
+  document.querySelector('#inputPutId').value = '';
+  boton.style.display = 'block';
+  formulario.style.display = 'none';
+}
+
+//Get Todos
+function getAll() {
+  fetch(`https://65427c36ad8044116ed3720a.mockapi.io/users`)
+    .then(response => response.json())
+    .then(data => {
+      showAll(data);
+    })
+    .catch(err => {
+      console.error('There was an error', err);
+    });
+}
+
+function mostrarFormulario() {
+  let formulario = document.querySelector('#miFormulario');
+  let boton = document.querySelector('#btnPut');
+  formulario.style.display = 'block';
+  boton.style.display = 'none';
 }
