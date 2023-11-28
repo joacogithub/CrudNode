@@ -1,5 +1,5 @@
 //Defino el modal de modificacion de usuarios
-let modal = new bootstrap.Modal(document.getElementById("dataModal"));
+let modal = new bootstrap.Modal(document.getElementById('dataModal'));
 document.addEventListener('DOMContentLoaded', function () {
   //Mostrar el usuario con id=x
   document.querySelector('#btnGet1').addEventListener('click', getDatos);
@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
   //Habilito botones PUT, SAVE y DELETE si tienen contenido
   let modHab = document.getElementById('inputPutId');
   let delHab = document.getElementById('inputDelete');
-  let putName = document.getElementById("inputPutNombre");
-  let putLName = document.getElementById("inputPutApellido");
+  let putName = document.getElementById('inputPutNombre');
+  let putLName = document.getElementById('inputPutApellido');
   modHab.addEventListener('input', habilitarBtn);
   delHab.addEventListener('input', habilitarBtn);
   putName.addEventListener('input', habilitarBtn);
@@ -95,20 +95,20 @@ function deleteUser() {
 //Función PUT
 function editUser() {
   let id = document.querySelector('#inputPutId').value;
-  let nameInput = document.getElementById("inputPutNombre");
-  let lastNameInput = document.getElementById("inputPutApellido");
+  let nameInput = document.getElementById('inputPutNombre');
+  let lastNameInput = document.getElementById('inputPutApellido');
   //Obtengo la informacion actual del usuario a modificar
   fetch(`https://65427c36ad8044116ed3720a.mockapi.io/users/${id}`)
-  .then(res => res.json())
-  .then(data => {
-    //Muestro el modal para editar los datos
-    modal.show();
-    nameInput.value = data.name;
-    lastNameInput.value = data.lastname;
-  })
-  .catch(err => {
-    console.error('There was an error', err);
-  });
+    .then(res => res.json())
+    .then(data => {
+      //Muestro el modal para editar los datos
+      modal.show();
+      nameInput.value = data.name;
+      lastNameInput.value = data.lastname;
+    })
+    .catch(err => {
+      console.error('There was an error', err);
+    });
 }
 
 //Get Todos
@@ -121,23 +121,23 @@ function getAll() {
     });
 }
 //Get ID
-function getID(id){
+function getID(id) {
   fetch(`https://65427c36ad8044116ed3720a.mockapi.io/users/${id}`)
-  .then(res => res.json())
-  .then(data => mostrarDatos(data))
-  .catch(err => {
-    console.error('There was an error', err);
-  });
+    .then(res => res.json())
+    .then(data => mostrarDatos(data))
+    .catch(err => {
+      console.error('There was an error', err);
+    });
 }
 //PUT ID
-function putID(){
+function putID() {
   let id = document.querySelector('#inputPutId').value;
-  let nameInput = document.getElementById("inputPutNombre");
-  let lastNameInput = document.getElementById("inputPutApellido");
+  let nameInput = document.getElementById('inputPutNombre');
+  let lastNameInput = document.getElementById('inputPutApellido');
   let datos = {
     name: nameInput.value,
-    lastname: lastNameInput.value
-  }
+    lastname: lastNameInput.value,
+  };
   let URL = `https://65427c36ad8044116ed3720a.mockapi.io/users/${id}`;
   fetch(URL, {
     method: 'PUT',
@@ -154,28 +154,29 @@ function putID(){
     .catch(error => {
       console.error('Error al enviar los datos', error);
     });
+  document.querySelector('#inputPutId').value = '';
 }
 //Hbilitar botones PUT y DELETE
-function habilitarBtn(){
+function habilitarBtn() {
   let btnDelete = document.getElementById('btnDelete');
   let btnPut = document.getElementById('btnPut');
   let btnSave = document.getElementById('btnSendChanges');
   let a = document.getElementById('inputPutId');
   let b = document.getElementById('inputDelete');
-  let c = document.getElementById("inputPutNombre");
-  let d = document.getElementById("inputPutApellido");
+  let c = document.getElementById('inputPutNombre');
+  let d = document.getElementById('inputPutApellido');
   //Compruebo que los campos PUT y DELETE tengan contenido
-  if(a.value){
+  if (a.value) {
     btnPut.disabled = false;
     btnDelete.disabled = true;
   }
-  if(b.value){
+  if (b.value) {
     btnPut.disabled = true;
     btnDelete.disabled = false;
   }
   if (c.value && d.value) {
     btnSave.disabled = false;
-  }else{
+  } else {
     btnSave.disabled = true;
   }
 }
