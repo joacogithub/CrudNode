@@ -1,4 +1,4 @@
-4<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -43,18 +43,8 @@
                             <input type="number" id="inputPutId" class="form-control"
                                 placeholder="ID del registro a modificar">
                                 <br>
-                            <button id="btnPut" class="btn btn-warning position-absolute bottom-0 mb-3">
+                            <button id="btnPut" class="btn btn-warning position-absolute bottom-0 mb-3" disabled>
                                 Modificar</button>
-
-                                 <!-- Formulario oculto inicialmente -->
-                                <div id="miFormulario" style="display: none;">
-                                    <!-- Contenido del formulario -->
-                                    <label for="nombre">Nombre:</label>
-                                    <input class="form-control" type="text" id="txtNombre" name="nombre">
-                                    <label for="apellido">Apellido:</label>
-                                    <input class="form-control" type="text" id="txtApellido" name="apellido">
-                                    <input class="btn btn-warning position-absolute mb-3" id="btnModificarUsuario" type="button" value="Enviar">
-                                </div>
                         </div>
 
                     </div>
@@ -62,7 +52,7 @@
                         <div class="border p-3 my-3 position-relative" id="delete-box">
                             <h6>Eliminar registro</h6>
                             <input type="number" id="inputDelete" class="form-control" placeholder="ID a eliminar">
-                            <button id="btnDelete" class="btn btn-danger position-absolute bottom-0 mb-3">
+                            <button id="btnDelete" class="btn btn-danger position-absolute bottom-0 mb-3" disabled>
                                 Borrar</button>
                         </div>
                     </div>
